@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" minWidth="50.0"
+          prefHeight="704.0" prefWidth="809.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.mikeldpl.uifxconsole.controllers.MainWindowController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="60.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="68.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="686.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES"/>
+        <RowConstraints vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" minWidth="50.0"
+               GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+        <TextArea fx:id="consoleWindow" editable="false" maxHeight="1.7976931348623157E308"
+                  maxWidth="1.7976931348623157E308" minHeight="50.0" minWidth="50.0"
+                  nodeOrientation="LEFT_TO_RIGHT"/>
+    </StackPane>
+    <CheckBox fx:id="follow" mnemonicParsing="false" onAction="#followAction" selected="true" text="Follow"/>
+    <Button fx:id="cleanButton" mnemonicParsing="false" onAction="#cleanButtonAction" prefHeight="9.0"
+            prefWidth="43.0" text="Clean" GridPane.columnIndex="2"/>
+    <CheckBox fx:id="wrap" mnemonicParsing="false" onAction="#wrapAction" text="Wrap" GridPane.columnIndex="1"/>
+</GridPane>
