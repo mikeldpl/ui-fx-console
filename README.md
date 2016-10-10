@@ -1,3 +1,7 @@
-Summer Framework
+ui-fx-console
 ================
-The project is simple MVC, WEB and dependency injection java (servlet) based framework
+It is simple lib for start UI version of console output.
+
+Example 1: UiFxConsole.configure().onClose(() -> resource.close()).title("My App").start();
+
+Example 2: UiFxConsole.start();
