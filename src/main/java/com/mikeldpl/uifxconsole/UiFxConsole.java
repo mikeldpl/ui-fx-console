@@ -7,27 +7,35 @@ import java.util.Objects;
 
 public class UiFxConsole {
 
-    static final Object LOCK = new Object();
-    private static final Configurer CONFIGURER = new Configurer();
-    static volatile String title = "Console";
-    private static volatile Runnable onClose = () -> {
-    };
-    private static volatile boolean daemon = true;
-    private static volatile boolean waitForWindowStartup = true;
-    private static volatile boolean isStarted = false;
+    private static final UiFxConsole instance = new UiFxConsole();
+    private static final Configurer configurer = new Configurer(instance);
+    final Object lock = new Object();
+    volatile String title = "Console";
+    private volatile Runnable onClose = () -> {};
+    private volatile boolean daemon = true;
+    private volatile boolean waitForWindowStartup = true;
+    private volatile boolean isStarted = false;
 
     private UiFxConsole() {
     }
 
-    public static void start(String... args) {
-        synchronized (LOCK) {
+    public static UiFxConsole getInstance() {
+        return instance;
+    }
+
+    public static Configurer configure() {
+        return configurer;
+    }
+
+    public void start(String... args) {
+        synchronized (lock) {
             checkIsNotStarted();
             createThread(args).start();
             markAsStarted();
-            Runtime.getRuntime().addShutdownHook(new Thread(UiFxConsole.onClose));
+            Runtime.getRuntime().addShutdownHook(new Thread(onClose));
             if (waitForWindowStartup) {
                 try {
-                    LOCK.wait(1500);
+                    lock.wait(1500);
                 } catch (InterruptedException e) {
                     throw new UiFxConsoleException(e);
                 }
@@ -35,59 +43,55 @@ public class UiFxConsole {
         }
     }
 
-    private static void markAsStarted() {
+    private void markAsStarted() {
         isStarted = true;
     }
 
-    private static Thread createThread(String[] args) {
+    private Thread createThread(String[] args) {
         Thread thread = new Thread(() -> Application.launch(ConsoleWindow.class, args));
         thread.setName(title + " - UiFxConsole Thread");
         thread.setDaemon(daemon);
         return thread;
     }
 
-    public static boolean isWaitForWindowStartup() {
+    public boolean isWaitForWindowStartup() {
         return waitForWindowStartup;
     }
 
-    public static void setWaitForWindowStartup(boolean waitForWindowStartup) {
+    public void setWaitForWindowStartup(boolean waitForWindowStartup) {
         checkIsNotStarted();
-        UiFxConsole.waitForWindowStartup = waitForWindowStartup;
+        this.waitForWindowStartup = waitForWindowStartup;
     }
 
-    public static boolean isDaemon() {
+    public boolean isDaemon() {
         return daemon;
     }
 
-    public static void setDaemon(boolean daemon) {
+    public void setDaemon(boolean daemon) {
         checkIsNotStarted();
-        UiFxConsole.daemon = daemon;
+        this.daemon = daemon;
     }
 
-    public static String getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    public static void setTitle(String title) {
+    public void setTitle(String title) {
         Objects.requireNonNull(title);
         checkIsNotStarted();
-        UiFxConsole.title = title;
+        this.title = title;
     }
 
-    public static Runnable getOnClose() {
+    public Runnable getOnClose() {
         return onClose;
     }
 
-    public static void setOnClose(Runnable onClose) {
+    public void setOnClose(Runnable onClose) {
         Objects.requireNonNull(onClose);
-        UiFxConsole.onClose = onClose;
+        this.onClose = onClose;
     }
 
-    public static Configurer configure() {
-        return CONFIGURER;
-    }
-
-    private static void checkIsNotStarted() {
+    private void checkIsNotStarted() {
         if (isStarted) {
             throw new UiFxConsoleException("UiFxConsole has been already started. Or it was started with exception.");
         }
@@ -96,31 +100,34 @@ public class UiFxConsole {
 
     public static class Configurer {
 
-        private Configurer() {
+        private final UiFxConsole console;
+
+        private Configurer(UiFxConsole inst) {
+            this.console = inst;
         }
 
         public Configurer onClose(Runnable onClose) {
-            setOnClose(onClose);
+            console.setOnClose(onClose);
             return this;
         }
 
         public Configurer title(String title) {
-            setTitle(title);
+            console.setTitle(title);
             return this;
         }
 
         public Configurer demon(boolean demon) {
-            setDaemon(demon);
+            console.setDaemon(demon);
             return this;
         }
 
         public Configurer waitForWindowStartup(boolean waitForWindowStartup) {
-            setWaitForWindowStartup(waitForWindowStartup);
+            console.setWaitForWindowStartup(waitForWindowStartup);
             return this;
         }
 
         public void start(String... args) {
-            UiFxConsole.start(args);
+            console.start(args);
         }
     }
 }

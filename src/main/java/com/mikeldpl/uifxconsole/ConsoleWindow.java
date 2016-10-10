@@ -17,8 +17,8 @@ public class ConsoleWindow extends Application {
             initView(stage);
             stage.show();
         } finally {
-            synchronized (UiFxConsole.LOCK) {
-                UiFxConsole.LOCK.notifyAll();
+            synchronized (UiFxConsole.getInstance().lock) {
+                UiFxConsole.getInstance().lock.notifyAll();
             }
         }
     }
@@ -29,7 +29,7 @@ public class ConsoleWindow extends Application {
     }
 
     private void initStage(Stage stage) {
-        stage.setTitle(UiFxConsole.title);
+        stage.setTitle(UiFxConsole.getInstance().title);
         stage.setOnCloseRequest(event -> System.exit(0));
     }
 }
