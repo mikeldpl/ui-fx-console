@@ -1,4 +1,6 @@
-package com.mikeldpl.uifxconsole;
+package com.github.mikeldpl.uifxconsole;
+
+import com.github.mikeldpl.uifxconsole.UiFxConsole;
 
 public class Test  {
     public static void main(String[] args) throws InterruptedException {

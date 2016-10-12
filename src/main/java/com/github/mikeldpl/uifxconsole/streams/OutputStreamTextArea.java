@@ -1,4 +1,4 @@
-package com.mikeldpl.uifxconsole.streams;
+package com.github.mikeldpl.uifxconsole.streams;
 
 import javafx.application.Platform;
 import javafx.scene.control.IndexRange;
@@ -7,6 +7,10 @@ import javafx.scene.control.TextArea;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ * {@code OutputStreamTextArea} is {@code OutputStream} that can write
+ * to {@link javafx.scene.control.TextArea}
+ */
 public class OutputStreamTextArea extends OutputStream {
 
     private TextArea textArea;

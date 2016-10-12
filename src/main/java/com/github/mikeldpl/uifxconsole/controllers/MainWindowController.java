@@ -1,7 +1,7 @@
-package com.mikeldpl.uifxconsole.controllers;
+package com.github.mikeldpl.uifxconsole.controllers;
 
-import com.mikeldpl.uifxconsole.streams.DuplicateOutputStream;
-import com.mikeldpl.uifxconsole.streams.OutputStreamTextArea;
+import com.github.mikeldpl.uifxconsole.streams.DuplicateOutputStream;
+import com.github.mikeldpl.uifxconsole.streams.OutputStreamTextArea;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +10,10 @@ import javafx.scene.control.TextArea;
 
 import java.io.PrintStream;
 
+/**
+ * Not for usage.
+ * This class public only due to specific of JavaFX.
+ */
 public class MainWindowController {
 
     @FXML

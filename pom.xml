@@ -4,9 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.mikeldpl.uifxconsole</groupId>
+    <groupId>com.github.mikeldpl</groupId>
     <artifactId>ui-fx-console</artifactId>
-    <version>1.0</version>
+    <version>1.0.0</version>
+    <!--==================================================================-->
+    <name>ui-fx-console</name>
+    <url>https://github.com/mikeldpl</url>
+    <description>
+        It is simple lib for start UI version of console output.
+        Example 1: UiFxConsole.configure().onClose(() -> resource.close()).title("My App").start();
+        Example 2: UiFxConsole.getInstance().start();
+    </description>
 
     <licenses>
         <license>
@@ -15,11 +23,30 @@
         </license>
     </licenses>
 
-    <description>
-        It is simple lib for start UI version of console output.
-        Example 1: UiFxConsole.configure().onClose(() -> resource.close()).title("My App").start();
-        Example 2: UiFxConsole.getInstance().start();
-    </description>
+    <developers>
+        <developer>
+            <name>Mykhailo Starodynov</name>
+            <email>mikeldpl@gmail.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/mikeldpl/ui-fx-console.git</connection>
+        <developerConnection>scm:git:ssh://github.com:mikeldpl/ui-fx-console.git</developerConnection>
+        <url>https://github.com/mikeldpl/ui-fx-console/tree/master</url>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+    <!--==================================================================-->
 
     <packaging>jar</packaging>
 
@@ -38,6 +65,7 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -45,13 +73,40 @@
                 <executions>
                     <execution>
                         <id>attach-sources</id>
-                        <phase>verify</phase>
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 

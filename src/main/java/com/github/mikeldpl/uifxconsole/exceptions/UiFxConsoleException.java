@@ -1,5 +1,9 @@
-package com.mikeldpl.uifxconsole.exceptions;
+package com.github.mikeldpl.uifxconsole.exceptions;
 
+
+/**
+ * {@code UiFxConsoleException} - own exception of com.mikeldpl.uifxconsole.exceptions package.
+ */
 public class UiFxConsoleException extends RuntimeException {
     public UiFxConsoleException() {
     }

@@ -1,9 +1,13 @@
-package com.mikeldpl.uifxconsole.streams;
+package com.github.mikeldpl.uifxconsole.streams;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
 
+/**
+ * {@code DuplicateOutputStream} is {@code OutputStream} that can write
+ * to the duplicate output to number of {@code OutputStream}.
+ */
 public class DuplicateOutputStream extends OutputStream {
 
     private OutputStream[] outputStreams;

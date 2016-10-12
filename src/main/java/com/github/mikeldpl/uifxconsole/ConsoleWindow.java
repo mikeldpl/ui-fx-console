@@ -1,4 +1,4 @@
-package com.mikeldpl.uifxconsole;
+package com.github.mikeldpl.uifxconsole;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +8,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Not for usage.
+ * This class public only due to specific of JavaFX.
+ */
 public class ConsoleWindow extends Application {
 
     @Override
